@@ -1,0 +1,269 @@
+<mvc:View
+    controllerName="com.sap.project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.gantt.simple"
+    xmlns:axistime="sap.gantt.axistime"
+    xmlns:config="sap.gantt.config"
+    xmlns:shapes="sap.gantt.simple.shapes"
+    xmlns:table="sap.ui.table"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:rm="sap.ui.table.rowmodes"
+>
+    <m:VBox id="_IDGenVBox1">
+        <f:SimpleForm
+            id="form"
+            editable="true"
+            layout="ColumnLayout"
+            columnsM="2"
+            columnsL="3"
+            columnsXL="3"
+        >
+            <f:content>
+                <m:Label
+                    id="_IDGenLabel11"
+                    text="Station"
+                />
+
+                <m:Select
+                    id="Select"
+                    change="onSelectChange"
+                >
+                    <m:items>
+                     <core:Item id="_IDGenItem12"
+                            key=""
+                            text=""
+                        />
+
+                        <core:Item id="_IDGenItem1"
+                            key="AKT"
+                            text="AKTOBE I"
+                        />
+                        <core:Item id="_IDGenItem2"
+                            key="AMANKARAGAI"
+                            text="AMANKARAGAI"
+                        />
+                        <core:Item id="_IDGenItem3"
+                            key="AKT1"
+                            text="AKTOBE II"
+                        />
+                    </m:items>
+                </m:Select>
+                <m:Label
+                    id="_IDGenLabel111"
+                    text="Wagon Status"
+                />
+
+                <m:Select
+                    id="Select1"
+                    change="onSelectChange"
+                >
+                    <m:items>
+                     <core:Item id="_IDGenItem123"
+                            key=""
+                            text=""
+                        />
+
+                        <core:Item id="_IDGenItem14"
+                            key="WagonStatus"
+                            text="EMPTY WAGON"
+                        />
+                        <core:Item id="_IDGenItem25"
+                            key="EMP01"
+                            text="EMPTY WAGON"
+                        />
+                        <core:Item id="_IDGenItem35"
+                            key="EMP1"
+                            text="EMPTY WAGON"
+                        />
+                    </m:items>
+                </m:Select>
+                <m:Label
+                    id="_IDGenLabel1111"
+                    text="Key Figure"
+                />
+
+                <m:Select
+                    id="Select12"
+                    change="onSelectChange"
+                >
+                    <m:items>
+                     <core:Item id="_IDGenItem1234"
+                            key=""
+                            text=""
+                        />
+
+                        <core:Item id="_IDGenItem141"
+                            key="Key3"
+                            text="Transport Receipts"
+                        />
+                        <core:Item id="_IDGenItem252"
+                            key="Key2"
+                            text="Supply"
+                        />
+                        <core:Item id="_IDGenItem353"
+                            key="Key1"
+                            text="Stock on Hand"
+                        />
+                    </m:items>
+                </m:Select>
+            </f:content>
+        </f:SimpleForm>
+    </m:VBox>
+    <GanttChartContainer id="_IDGenGanttChartContainer1">
+        <!-- <toolbar>
+            <ContainerToolbar id="_IDGenContainerToolbar1" showSearchButton="false">
+                <m:Select
+                    id="taskAlignment"
+                    forceSelection="false"
+                    selectedKey="Middle"
+                    change="onTaskAlignmentChange"
+                >
+                    <m:items>
+                        <core:Item id="_IDGenItem1"
+                            key="Top"
+                            text="Task Alignment - Top"
+                        />
+                        <core:Item id="_IDGenItem2"
+                            key="Middle"
+                            text="Task Alignment - Middle"
+                        />
+                        <core:Item id="_IDGenItem3"
+                            key="Bottom"
+                            text="Task Alignment - Bottom"
+                        />
+                    </m:items>
+                </m:Select>
+            </ContainerToolbar>
+        </toolbar> -->
+        <GanttChartWithTable
+            id="gantt"
+            shapeSelectionMode="Single"
+        >
+            <!-- <axisTimeStrategy>
+                <axistime:ProportionZoomStrategy id="_IDGenProportionZoomStrategy1">
+                    <axistime:totalHorizon>
+                        <config:TimeHorizon id="_IDGenTimeHorizon1"
+                            startTime="20240115000000"
+                            endTime="20240122000000"
+                        />
+                    </axistime:totalHorizon>
+                    <axistime:visibleHorizon>
+                        <config:TimeHorizon id="_IDGenTimeHorizon2"
+                            startTime="20240116000000"
+                            endTime="20240123000000"
+                        />
+                    </axistime:visibleHorizon>
+                </axistime:ProportionZoomStrategy>
+            </axisTimeStrategy> -->
+            <table>
+                <table:TreeTable
+                    id="_IDGenTreeTable1"
+                    selectionMode="MultiToggle"
+                    selectionBehavior="RowSelector"
+                    enableColumnReordering="true"
+                    rows="{
+                        path: '/root',
+                        parameters: {
+                            arrayNames: ['children'],
+                            numberOfExpandedLevels: 1
+                        }
+                    }"
+                >
+                    <table:columns>
+                        <table:Column id="_IDGenColumn1">
+                            <m:Text
+                                id="_IDGenText1"
+                                text="Station"
+                            />
+                            <table:template>
+                                <m:Label
+                                    id="_IDGenLabel1"
+                                    text="{text}"
+                                />
+                            </table:template>
+                        </table:Column>
+                    </table:columns>
+                    <table:columns>
+                        <table:Column id="_IDGenColumn2">
+                            <m:Text
+                                id="_IDGenText2"
+                                text="Wagon Status"
+                            />
+                            <table:template>
+                                <m:Label
+                                    id="_IDGenLabel2"
+                                    text="{wagonstatus}"
+                                />
+                            </table:template>
+                        </table:Column>
+                    </table:columns>
+                    <table:columns>
+                        <table:Column id="_IDGenColumn3">
+                            <m:Text
+                                id="_IDGenText3"
+                                text="Key Figure"
+                            />
+                            <table:template>
+                                <m:Label
+                                    id="_IDGenLabel3"
+                                    text="{keyfigure}"
+                                />
+                            </table:template>
+                        </table:Column>
+                    </table:columns>
+                    <table:rowMode>
+                        <rm:Auto
+                            id="_IDGenAuto1"
+                            minRowCount="12"
+                        />
+                    </table:rowMode>
+                    <table:rowSettingsTemplate>
+                        <GanttRowSettings
+                            id="_IDGenGanttRowSettings1"
+                            rowId="{id}"
+                        >
+                            <shapes1>
+                                <BaseConditionalShape
+                                    id="_IDGenBaseConditionalShape1"
+                                    activeShape="{= ${type} === 'chevron' ? 1 : 0}"
+                                >
+                                    <shapes>
+                                        <BaseRectangle
+                                            id="_IDGenBaseRectangle1"
+                                            time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+                                            endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+                                            fill="{fill}"
+                                            title="{text1}"
+                                        />
+                                        <!-- <BaseChevron id="_IDGenBaseChevron1"
+                                            time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+                                            endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+                                            fill="@sapUiChartPaletteQualitativeHue6"
+                                        /> -->
+                                    </shapes>
+                                </BaseConditionalShape>
+                            </shapes1>
+                            <!-- <shapes1>
+                                <BaseRectangle id="_IDGenTask1"
+                                    time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+                                    endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+                                    
+                                />
+                            </shapes1>
+                            <shapes2>
+                                <BaseRectangle id="_IDGenTask2"
+                                    time="{path: 'startTime', formatter: '.fnTimeConverter'}"
+                                    endTime="{path: 'endTime', formatter: '.fnTimeConverter'}"
+                                />
+                            </shapes2> -->
+                        </GanttRowSettings>
+                    </table:rowSettingsTemplate>
+                </table:TreeTable>
+            </table>
+        </GanttChartWithTable>
+    </GanttChartContainer>
+</mvc:View>

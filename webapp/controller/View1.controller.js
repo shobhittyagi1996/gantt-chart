@@ -16,23 +16,25 @@ function (Controller, JSONModel, Format, Utility) {
                         {
                             "id": "line1",
                             "text": "AKTAU PORT",
-                            "fill": "@sapUiChartPaletteQualitativeHue7",
-                            "text1": "2134578",
+                            
+                            
+                            "text2": "10",
+                            "startTime1": "20240107090000",
+                            "endTime1": "20240114090000",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Production Receipts",
-                            "startTime": "20240115090000",
-                            "endTime": "20240122090000"
+                            
                         },
                         {
                             "id": "line2",
                             "text": "AKTOBE I",
-                            "text1": "1249896",
-                            "fill": "@sapUiChartPaletteQualitativeHue7",
+                            "text2": "14",
+                            "startTime1": "20240202090000",
+                            "endTime1": "20240209090000",
                             "type": "triangle",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Component Supply", 
-                            "startTime": "20240123090000",
-                            "endTime": "20240130090000"
+                            
                         },
                         {
                             "id": "line3",
@@ -47,6 +49,7 @@ function (Controller, JSONModel, Format, Utility) {
                         {
                             "id": "line4",
                             "text": "AMANKARAGAI",
+                            "text1": "57837697",
                             "fill": "@sapUiChartPaletteQualitativeHue5",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Projected Stock",
@@ -56,7 +59,8 @@ function (Controller, JSONModel, Format, Utility) {
                         {
                             "id": "line5",
                             "text": "ASSAKE",
-                            "fill": "@sapUiChartPaletteQualitativeHue5",
+                            "text1": "786709680",
+                            "fill": "#008000",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Stock on Hand",
                             "startTime": "20240119090000",
@@ -65,15 +69,16 @@ function (Controller, JSONModel, Format, Utility) {
                         {
                             "id": "line6",
                             "text": "JETY-SU",
-                            "fill": "#008000",
+                            "text2": "7",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Projected Stock",
-                            "startTime": "20240111090000",
-                            "endTime": "20240117090000"
+                            "startTime1": "20240114090000",
+                            "endTime1": "20240121090000"
                         },
                         {
                             "id": "line7",
                             "text": "AKHANGARAN",
+                            "text1": "28082915",
                             "fill": "@sapUiChartPaletteQualitativeHue7",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Supply",
@@ -83,20 +88,22 @@ function (Controller, JSONModel, Format, Utility) {
                         {
                             "id": "line8",
                             "text": "ALMATY 1",
+                            "text1": "758373525",
                             "fill": "@sapUiChartPaletteQualitativeHue7",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Transport Supply",
-                            "startTime": "20240115090000",
-                            "endTime": "20240122090000"
+                            "startTime": "20240211090000",
+                            "endTime": "20240218090000"
                         },
                         {
                             "id": "line9",
                             "text": "ALMATY 2",
+                            "text1": "28082915",
                             "fill": "@sapUiChartPaletteQualitativeHue7",
                             "wagonstatus": "EMPTY WAGON",
                             "keyfigure":"Recipt",
-                            "startTime": "20240115090000",
-                            "endTime": "20240122090000"
+                            "startTime": "20240201090000",
+                            "endTime": "20240208090000"
                         },
                         
                     ]
@@ -105,13 +112,97 @@ function (Controller, JSONModel, Format, Utility) {
 
             oModel.setData(data);
             this.getView().setModel(oModel);
-            debugger;
+            var oStationSelect = this.byId("Select");
+            oStationSelect.bindAggregation("items", {
+                path: "/root/children",
+                template: new sap.ui.core.Item({
+                    key: "{id}",
+                    text: "{text}"
+                })
+            });
+//            
+
+            // oModel.setData(data);
+            // this.getView().setModel(oModel);
+            var oStationSelect = this.byId("Select12");
+            oStationSelect.bindAggregation("items", {
+                path: "/root/children",
+                template: new sap.ui.core.Item({
+                    key: "{id}",
+                    text: "{keyfigure}"
+                })
+            });
+            var oStationSelect = this.byId("Select1");
+            oStationSelect.bindAggregation("items", {
+                path: "/root/children",
+                template: new sap.ui.core.Item({
+                    key: "{id}",
+                    text: "{wagonstatus}"
+                })
+            });
+            
             var Items = ['enableNowLine','enableAdhocLine','enableStatusBar'];
             this.getView().byId("gantt").getParent().setProperty('hideSettingsItem',Items);
         },
+        onSelectChange: function (oEvent) {
+            // Get the selected station key
+            var sSelectedStationKey = oEvent.getParameter("selectedItem").getKey();
+
+            // Get the Gantt Chart control
+            var oGanttChart = this.byId("gantt");
+
+            // Get the Gantt Chart rows binding
+            var oBinding = oGanttChart.getTable().getBinding("rows");
+
+            // Clear any existing filters
+            oBinding.filter([]);
+
+            // Apply a new filter based on the selected station
+            if (sSelectedStationKey) {
+                oBinding.filter(new sap.ui.model.Filter("id", "EQ", sSelectedStationKey));
+            }
+        },
+        onSelectChangeKeyFigure:function (oEvent) {
+            // Get the selected station key
+            var sSelectedStationKey = oEvent.getParameter("selectedItem").getKey();
+
+            // Get the Gantt Chart control
+            var oGanttChart = this.byId("gantt");
+
+            // Get the Gantt Chart rows binding
+            var oBinding = oGanttChart.getTable().getBinding("rows");
+
+            // Clear any existing filters
+            oBinding.filter([]);
+
+            // Apply a new filter based on the selected station
+            if (sSelectedStationKey) {
+                oBinding.filter(new sap.ui.model.Filter("id", "EQ", sSelectedStationKey));
+            }
+        },
+        onSelectChangewagon:function (oEvent) {
+            // Get the selected station key
+            var sSelectedStationKey = oEvent.getParameter("selectedItem").getKey();
+
+            // Get the Gantt Chart control
+            var oGanttChart = this.byId("gantt");
+
+            // Get the Gantt Chart rows binding
+            var oBinding = oGanttChart.getTable().getBinding("rows");
+
+            // Clear any existing filters
+            oBinding.filter([]);
+
+            // Apply a new filter based on the selected station
+            if (sSelectedStationKey) {
+                oBinding.filter(new sap.ui.model.Filter("id", "EQ", sSelectedStationKey));
+            }
+        },
+
         fnTimeConverter: function (sTimestamp) {
             return Format.abapTimestampToDate(sTimestamp);
         },
+        
         onTaskAlignmentChange: function(oEvent) {
             var oSelectedKey = oEvent.getSource().getSelectedKey();
             this.byId("gantt").getTable().getRows().forEach(function(oRow) {
@@ -122,6 +213,7 @@ function (Controller, JSONModel, Format, Utility) {
                     oShape.setAlignShape(oSelectedKey);
                 });
             });
-        }
+        },
+        
     });
 });
